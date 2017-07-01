@@ -158,7 +158,11 @@ class API{
 	}
 	public static function installQueue(){
 		foreach(self::$installQueue as $path => $packages){
-			$repo = new Repository(new directory\local($path));
+			$directory = new directory\local($path);
+			if(!$directory->exists()){
+				$directory->make(true);
+			}
+			$repo = new Repository($directory);
 			foreach($packages as $name => $package){
 				unset(self::$installQueue[$path][$name]);
 				$package->installTo($repo);
