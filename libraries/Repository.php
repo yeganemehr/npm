@@ -92,7 +92,6 @@ class Repository{
 	public function addToInstallQueue(Version $version){
 		$version->formalInstallTo($this);
 		API::addToInstallQueue($this, $version);
-		//$this->installQueue[$version->getName()] = $version;
 	}
 	public function getDirectory():directory{
 		return $this->directory;
