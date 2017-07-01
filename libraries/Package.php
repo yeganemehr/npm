@@ -65,10 +65,11 @@ class Package implements \Serializable{
 				return null;
 			}
 		}
+		$string = str_replace(" ", "", $string);
 		$versionController = Dependency::parse($string);
 		$string = API::getVersionName($string);
 		$latest = null;
-		if($versionController == Dependency::wildcard or $string == 'latest'){
+		if($versionController == Dependency::wildcard){
 			$latest = $this->tags['latest'];
 		}elseif($versionController == Dependency::exact){
 			if(isset($this->versions[$string])){
