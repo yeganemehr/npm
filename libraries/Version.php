@@ -82,6 +82,7 @@ class Version implements \Serializable{
 					$buffer->write(gzread($zp, 1024));
 				}
 				gzclose($zp);
+				$buffer->close();
 				$p = new \PharData($tarball->getPath());
 				$p->extractTo($directory->getPath(), null, true);
 				$tarball->delete();
