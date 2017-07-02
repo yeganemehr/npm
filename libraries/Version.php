@@ -119,6 +119,7 @@ class Version implements \Serializable{
 		}
 		$directory->file('package.json')->write(json\encode($packageConfig, json\PRETTY | json\FORCE_OBJECT));
 		$directory->file('.formal')->write('');
+		unset($packageConfig);
 		$localRepo = new Repository($directory);
 		foreach($this->dependencies as $dependency){
 			$parentRepository = $repo;
@@ -184,9 +185,12 @@ class Version implements \Serializable{
 		$log->info("extract files");
 		$this->extract($tarball, $directory);
 		$log->reply("success");
-		$directories = $directory->directories(false);
-		$packageDir = $directories[0];
-		unset($directories);
+		$packageDir = $directory->directory('package');
+		if(!$packageDir->exists()){
+		    $directories = $directory->directories(false);
+		    $packageDir = $directories[0];
+		    unset($directories);
+		}
 		$log->debug("move packages file");
 		foreach($packageDir->directories(false) as $item){
 			$item->move($item->getDirectory()->getDirectory());
