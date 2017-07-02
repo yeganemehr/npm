@@ -41,16 +41,15 @@ class Dependency{
 	}
 	public function getVersionName():string{
 		if(is_string($this->version)){
-			$string = str_replace(' ', '', $this->version);
-			$at = strpos($string, '@', 1);
+			$at = strpos($this->version, '@', 1);
 			if($at === false){
-				$at = strlen($string);
+				$at = strlen($this->version);
 			}
-			$code = substr($string, $at+1);
+			$code = trim(substr($this->version, $at+1));
 			$operators = ['>=','<=','==','=','~','^','*'];
 			foreach($operators as $operator){
 				if(substr($code, 0, strlen($operator)) == $operator){
-					$code = substr($code, strlen($operator));
+					$code = trim(substr($code, strlen($operator)));
 					break;
 				}
 			}
