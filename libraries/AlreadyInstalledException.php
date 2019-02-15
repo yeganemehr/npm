@@ -2,7 +2,7 @@
 namespace packages\npm\Package\Version;
 use \packages\npm\Package\Version;
 use \packages\npm\Repository;
-class InvalidVersionControllerException extends \Exception{
+class AlreadyInstalledException extends \Exception{
 	protected $version;
 	protected $repository;
 	public function __construct(Version $version, Repository $repository){
